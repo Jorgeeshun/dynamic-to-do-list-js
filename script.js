@@ -3,38 +3,43 @@ document.addEventListener('DOMContentLoaded', () => {
     const addButton = document.getElementById('add-task-btn');
     const taskInput = document.getElementById('task-input');
     const taskList = document.getElementById('task-list');
+    const feedbackMessage = document.getElementById('feedback-message'); // Select the new feedback element
 
-    // Define the addTask function
+    // Function to add a task
     function addTask() {
         // Get and trim the value from the input field
         const taskText = taskInput.value.trim();
 
-        // Check if the input is not empty
+        // Check if the input is empty
         if (taskText === "") {
+            // Display feedback message instead of using alert
+            feedbackMessage.textContent = "Please enter a task.";
+            feedbackMessage.style.color = "red"; // Optional: style the message
             return;
         }
 
-        // Create a new li element
+        // Clear any previous feedback message
+        feedbackMessage.textContent = "";
+
+        // Create a new list item
         const listItem = document.createElement('li');
         listItem.textContent = taskText;
 
-        // Create a new button for removing the task
+        // Create a new button to remove the task
         const removeBtn = document.createElement('button');
         removeBtn.textContent = 'Remove';
         removeBtn.className = 'remove-btn';
 
-        // Assign an onclick event to the remove button
+        // Add an event listener to the remove button
         removeBtn.onclick = function() {
             taskList.removeChild(listItem);
         };
 
-        // Append the remove button to the li element
+        // Append elements
         listItem.appendChild(removeBtn);
-
-        // Append the new li element to the task list
         taskList.appendChild(listItem);
 
-        // Clear the task input field
+        // Clear the input field
         taskInput.value = '';
     }
 
